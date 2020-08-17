@@ -1,18 +1,30 @@
-import React from 'react'
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { startLogin } from '../../auth/auth';
 
-const LoginScreen = ({history}) => {
+const LoginScreen = ({ history }) => {
+	const dispatch = useDispatch();
 
-    const handleLogin = () => {
-        history.replace('/');
-    }
+	const nombre = {
+		id: 0,
+		name: 'Mirco',
+	};
 
-    return (
-        <div className="container mt-5">
-            <h1>Login</h1>
-            <hr />
-            <button className="btn btn-primary" onClick={handleLogin}>Login</button>
-        </div>
-    )
-}
+	const handleLogin = () => {
+		dispatch(startLogin(nombre));
 
-export default LoginScreen
+		history.replace('/');
+	};
+
+	return (
+		<div className="container mt-5">
+			<h1>Login</h1>
+			<hr />
+			<button className="btn btn-primary" onClick={handleLogin}>
+				Login
+			</button>
+		</div>
+	);
+};
+
+export default LoginScreen;

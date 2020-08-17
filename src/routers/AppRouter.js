@@ -1,16 +1,29 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {useSelector} from 'react-redux'
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import LoginScreen from '../components/login/LoginScreen';
 import DashboardRoutes from './DashboardRoutes';
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 
 const AppRouter = () => {
+
+	const {logged} = useSelector(state => state.auth)
+
 	return (
 		<Router>
 			<div>
 				<Switch>
-					<Route exact path="/login" component={LoginScreen}/>
-					<Route path="/" component={DashboardRoutes}/>
+					<PublicRoute 
+						exact 
+						path="/login" 
+						component={LoginScreen}
+						isAuthenticated={logged}/>
+					<PrivateRoute 
+						path="/" 
+						component={DashboardRoutes}
+						isAuthenticated={logged}/>
 				</Switch>
 			</div>
 		</Router>
